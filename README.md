@@ -41,4 +41,4 @@ minigames.startBattle(GuildMember, Message)
 ```
 To start the battle call the method startBattle(), this method requires 2 parameters, the first parameter (member) is a GuildMember object, and the second (message) is a Message object.
 ## Note
-This is **very new** and will have bugs, I am fixing the "Cannot send an empty message" DiscordAPIError right now, please put any new errors [here](https://github.com/DaRealDorseyBro/discord-minigames/issues)!
+This is **very new** and will have bugs, please put any new errors [here](https://github.com/DaRealDorseyBro/discord-minigames/issues)!
