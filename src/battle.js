@@ -35,7 +35,7 @@ exports.createBattle = async function (member, message) {
         battleActive: false,
         battleTurn: false
     };
-    if (!message.guild.members.cache.get(member.id)) return message.reply("Mention a member within the command.");
+    if (!member.id || !message.author) return message.reply("Please specify a member to play with!");
     if (member.id === message.author.id)
         return message.reply(
             "You can't play with yourself!"
@@ -530,4 +530,3 @@ exports.createBattle = async function (member, message) {
         }, 1500);
     }
 }
-//CONNECT 4
