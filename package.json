@@ -1,0 +1,31 @@
+{
+  "name": "discord-minigames",
+  "version": "1.0.0",
+  "description": "A collection of minigames to play on your JavaScript Discord Bot",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DaRealDorseyBro/discordbattles.git"
+  },
+  "keywords": [
+    "game",
+    "games",
+    "minigames",
+    "discordgames",
+    "discord-games",
+    "discordminigames",
+    "discord-minigames"
+  ],
+  "author": "darealdorseybro <175dorc@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DaRealDorseyBro/discordbattles/issues"
+  },
+  "homepage": "https://github.com/DaRealDorseyBro/discordbattles#readme",
+  "dependencies": {
+    "discord.js": "^12.3.1"
+  }
+}
