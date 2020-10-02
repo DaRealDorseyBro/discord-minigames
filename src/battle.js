@@ -15,7 +15,7 @@ let heals = [
 ];
 let chance = ["yes", "yes", "no", "yes", "yes", "no", "yes", "yes"];
 //BATTLES
-exports.createBattle = async function(member, message) {
+exports.createBattle = async function (member, message) {
     const settings = {
         health: 175,
         attackMin: 1,
@@ -92,9 +92,19 @@ exports.createBattle = async function(member, message) {
     }
 
     async function accept(channel, playerOne, playerTwo, message, member) {
-            playerOneData.battleActive = true;
-            playerTwoData.battleActive = true;
-            channel.send('test').then(async started => {
+        playerOneData.battleActive = true;
+        playerTwoData.battleActive = true;
+        channel.send(new MessageEmbed()
+            .setTitle("Settings")
+            .setDescription(
+                `Here are the settings you can change\nhealth: \`${settings.health}\`\nheal min: \`${settings.healMin}\` | heal max: \`${settings.healMax}\`\nattack min: \`${settings.attackMin}\` | attack max: \`${settings.attackMax}\`\n\nYou can change the values by typing in the name, then a number\nExample: \`heal max 50\`\nSend \`start\` to start!`
+            )
+            .setColor("GREEN")
+            .setFooter(
+                message.member.displayName,
+                message.author.displayAvatarURL()
+            )
+        ).then(async started => {
             let filter1 = msg => msg.author.id === playerOne;
             let setSettings = channel.createMessageCollector(filter1, {
                 time: 120000
