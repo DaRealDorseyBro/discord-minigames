@@ -1,6 +1,6 @@
 const {MessageEmbed} = require("discord.js");
 exports.createISpy = async function (member, message) {
-    if (!message.guild.members.cache.get(member.id)) return message.channel.send('Please specify a member!')
+    if (!message.guild.members.cache.get(member.id)) return message.channel.send('Please specify a member to play with!')
     if (member.id === message.author.id)
         return message.reply("You can't play with yourself!");
     if (member.user.bot) return message.reply("Bots can't play!");
