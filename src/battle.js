@@ -1,4 +1,4 @@
-const {MessageEmbed} = require("discord.js")
+const {MessageEmbed} = require('discord.js')
 let attacks = [
     "stab",
     "attack",
@@ -228,7 +228,7 @@ exports.createBattle = async function (member, message) {
                                     playerTwoData.battleHealth
                                 }\`\n\nAttacks: \`${attacks.join(
                                     ", "
-                                )}\`\nHealing: \`${heals.join(", ")}\``
+                                )}\`\nHealing: \`${heals.join(", ")}\`\n\nUse \`--end\` on your turn to end`
                             )
                             .setColor("RED")
                             .setFooter(message.author.username, message.author.avatarURL())
@@ -254,8 +254,8 @@ exports.createBattle = async function (member, message) {
 
         collector.on("collect", async msg => {
             if (
-                msg.content.toLowerCase() === "g!end" ||
-                msg.content.toLowerCase() === "🏳️" ||
+                msg.content.toLowerCase() === "--end" ||
+                msg.content.toLowerCase() === "ðŸ³ï¸" ||
                 msg.content.toLowerCase() === "suicide"
             ) {
                 let winner;
@@ -271,18 +271,17 @@ exports.createBattle = async function (member, message) {
             var i;
             for (i = 0; i < attacks.length; i++) {
                 if (msg.content.toLowerCase() === attacks[i]) {
-                    message.channel.bulkDelete(1);
+
                     let attackAmount =
                         Math.floor(
                             Math.random() * (settings.attackMax - settings.attackMin)
                         ) + settings.attackMin;
                     let attackChance = Math.floor(Math.random() * chance.length);
                     if (chance[attackChance] === "yes") {
-                        await collector.stop();
                         playerTwoData.battleHealth -= attackAmount;
-                        await second(channel, playerOne, playerTwo, message);
                         playerOneData.battleTurn = false;
-                        return channel.send(
+                        await collector.stop();
+                        await channel.send(
                             new MessageEmbed()
                                 .setDescription(
                                     `${nowBattling} used **${attacks[i]}** to do \`${attackAmount}\` damage to ${nextUp}, they have \`${playerTwoData.battleHealth}\` HP Left!`
@@ -296,12 +295,12 @@ exports.createBattle = async function (member, message) {
                                     `Next up: ${nextUp.displayName}`,
                                     nextUp.user.displayAvatarURL()
                                 )
-                        );
+                        )
+                        return second(channel, playerOne, playerTwo, message);
                     } else if (chance[attackChance] === "no") {
-                        await collector.stop();
-                        await second(channel, playerOne, playerTwo, message);
                         playerOneData.battleTurn = false;
-                        return channel.send(
+                        await collector.stop();
+                        await channel.send(
                             new MessageEmbed()
                                 .setDescription(
                                     `${nowBattling} used **${attacks[i]}** against ${nextUp}, but it was unsuccessful, they still have \`${playerTwoData.battleHealth}\` HP Left!`
@@ -315,7 +314,8 @@ exports.createBattle = async function (member, message) {
                                     `Next up: ${nextUp.displayName}`,
                                     nextUp.user.displayAvatarURL()
                                 )
-                        );
+                        )
+                        await second(channel, playerOne, playerTwo, message);
                     }
                 }
             }
@@ -324,18 +324,17 @@ exports.createBattle = async function (member, message) {
             var x;
             for (x = 0; x < heals.length; x++) {
                 if (msg.content.toLowerCase() === heals[x]) {
-                    message.channel.bulkDelete(1);
+
                     let healAmount =
                         Math.floor(
                             Math.random() * (settings.healMax - settings.healMin)
                         ) + settings.healMin;
                     let healChance = Math.floor(Math.random() * chance.length);
                     if (chance[healChance] === "yes") {
-                        await collector.stop();
                         playerOneData.battleHealth += healAmount;
-                        await second(channel, playerOne, playerTwo, message);
                         playerOneData.battleTurn = false;
-                        return channel.send(
+                        await collector.stop()
+                        await channel.send(
                             new MessageEmbed()
                                 .setDescription(
                                     `${nowBattling} used **${heals[x]}** and healed \`${healAmount}\` HP, they now have \`${playerOneData.battleHealth}\` HP!`
@@ -349,12 +348,12 @@ exports.createBattle = async function (member, message) {
                                     `Next up: ${nextUp.displayName}`,
                                     nextUp.user.displayAvatarURL()
                                 )
-                        );
+                        )
+                        return second(channel, playerOne, playerTwo, message);
                     } else if (chance[healChance] === "no") {
+                        playerOneData.battleTurn = false
                         await collector.stop();
-                        await second(channel, playerOne, playerTwo, message);
-                        playerOneData.battleTurn = false;
-                        return channel.send(
+                        await channel.send(
                             new MessageEmbed()
                                 .setDescription(
                                     `${nowBattling} used **${heals[x]}** but it was unsuccessful, they still have \`${playerTwoData.battleHealth}\` HP!`
@@ -368,7 +367,8 @@ exports.createBattle = async function (member, message) {
                                     `Next up: ${nextUp.displayName}`,
                                     nextUp.user.displayAvatarURL()
                                 )
-                        );
+                        )
+                        return second(channel, playerOne, playerTwo, message);
                     }
                 }
             }
@@ -393,8 +393,8 @@ exports.createBattle = async function (member, message) {
 
         collector.on("collect", async msg => {
             if (
-                msg.content.toLowerCase() === "g!end" ||
-                msg.content.toLowerCase() === "🏳️" ||
+                msg.content.toLowerCase() === "--end" ||
+                msg.content.toLowerCase() === "ðŸ³ï¸" ||
                 msg.content.toLowerCase() === "suicide"
             ) {
                 let winner;
@@ -410,18 +410,16 @@ exports.createBattle = async function (member, message) {
             var i;
             for (i = 0; i < attacks.length; i++) {
                 if (msg.content.toLowerCase() === attacks[i]) {
-                    message.channel.bulkDelete(1);
                     let attackAmount =
                         Math.floor(
                             Math.random() * (settings.attackMax - settings.attackMin)
                         ) + settings.attackMin;
                     let attackChance = Math.floor(Math.random() * chance.length);
                     if (chance[attackChance] === "yes") {
-                        await collector.stop();
                         playerOneData.battleHealth -= attackAmount;
-                        await first(channel, playerOne, playerTwo, message);
                         playerTwoData.battleTurn = false;
-                        return channel.send(
+                        await collector.stop();
+                        await channel.send(
                             new MessageEmbed()
                                 .setDescription(
                                     `${nowBattling} used **${attacks[i]}** to do \`${attackAmount}\` damage to ${nextUp}, they have \`${playerOneData.battleHealth}\` HP Left!`
@@ -435,12 +433,12 @@ exports.createBattle = async function (member, message) {
                                     `Next up: ${nextUp.displayName}`,
                                     nextUp.user.displayAvatarURL()
                                 )
-                        );
+                        )
+                        return first(channel, playerOne, playerTwo, message);
                     } else if (chance[attackChance] === "no") {
+                        playerTwoData.battleTurn = false
                         await collector.stop();
-                        await first(channel, playerOne, playerTwo, message);
-                        playerTwoData.battleTurn = false;
-                        return channel.send(
+                        await channel.send(
                             new MessageEmbed()
                                 .setDescription(
                                     `${nowBattling} used **${attacks[i]}** against ${nextUp}, but it was unsuccessful, they still have \`${playerTwoData.battleHealth}\` HP Left!`
@@ -454,7 +452,8 @@ exports.createBattle = async function (member, message) {
                                     `Next up: ${nextUp.displayName}`,
                                     nextUp.user.displayAvatarURL()
                                 )
-                        );
+                        )
+                        return first(channel, playerOne, playerTwo, message);
                     }
                 }
             }
@@ -469,11 +468,10 @@ exports.createBattle = async function (member, message) {
                         ) + settings.healMin;
                     let healChance = Math.floor(Math.random() * chance.length);
                     if (chance[healChance] === "yes") {
-                        await collector.stop();
                         playerTwoData.battleHealth += healAmount;
-                        await first(channel, playerOne, playerTwo, message);
                         playerTwoData.battleTurn = false;
-                        return channel.send(
+                        await collector.stop();
+                        await channel.send(
                             new MessageEmbed()
                                 .setDescription(
                                     `${nowBattling} used **${heals[x]}** and healed \`${healAmount}\` HP, they now have \`${playerTwoData.battleHealth}\` HP!`
@@ -487,12 +485,12 @@ exports.createBattle = async function (member, message) {
                                     `Next up: ${nextUp.displayName}`,
                                     nextUp.user.displayAvatarURL()
                                 )
-                        );
+                        )
+                        return first(channel, playerOne, playerTwo, message);
                     } else if (chance[healChance] === "no") {
-                        await collector.stop();
-                        await first(channel, playerOne, playerTwo, message);
                         playerTwoData.battleTurn = false;
-                        return channel.send(
+                        await collector.stop();
+                        await channel.send(
                             new MessageEmbed()
                                 .setDescription(
                                     `${nowBattling} used **${heals[x]}** but it was unsuccessful, they still have \`${playerTwoData.battleHealth}\` HP!`
@@ -506,7 +504,8 @@ exports.createBattle = async function (member, message) {
                                     `Next up: ${nextUp.displayName}`,
                                     nextUp.user.displayAvatarURL()
                                 )
-                        );
+                        )
+                        return first(channel, playerOne, playerTwo, message)
                     }
                 }
             }
@@ -528,7 +527,7 @@ exports.createBattle = async function (member, message) {
                     .setColor("GREEN")
                     .setFooter(won.displayName, won.user.displayAvatarURL())
             );
-        }, 2000);
+        }, 1500);
     }
 }
 //CONNECT 4
