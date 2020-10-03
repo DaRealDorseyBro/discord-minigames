@@ -1,6 +1,6 @@
 {
   "name": "discord-minigames",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "description": "A collection of minigames to play on your JavaScript Discord Bot",
   "main": "src/index.js",
   "scripts": {
