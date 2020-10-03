@@ -18,6 +18,7 @@ exports.createISpy = async function (member, message) {
         pickedColor: "",
         pickedObject: ""
     }
+    // Only 1 Scene
     const scene1 = {
         name: "The Perfect Living",
         url: "https://i.imgur.com/1SzSNJ8.png",
