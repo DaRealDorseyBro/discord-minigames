@@ -1,9 +1,9 @@
 const {MessageEmbed} = require("discord.js");
 exports.createISpy = async function (member, message) {
-    if (!message.guild.members.cache.get(member.id)) return message.channel.send('Please specify a member to play with!')
+    if (!member.id || !message.author) return message.channel.send('Please specify a member to play with!')
     if (member.id === message.author.id)
-        return message.reply("You can't play with yourself!");
-    if (member.user.bot) return message.reply("Bots can't play!");
+        return message.channel.send("You can't play with yourself!");
+    if (member.user.bot) return message.channel.send("Bots can't play!");
     let scenes = ['scene1']
     let randomScene = Math.floor(Math.random() * scenes.length)
     const playerOneData = {
@@ -18,7 +18,6 @@ exports.createISpy = async function (member, message) {
         pickedColor: "",
         pickedObject: ""
     }
-    // Only 1 Scene
     const scene1 = {
         name: "The Perfect Living",
         url: "https://i.imgur.com/1SzSNJ8.png",
@@ -98,6 +97,7 @@ exports.createISpy = async function (member, message) {
             }
         }
     }
+
     return start(member, message);
     
     async function start(member, message) {
@@ -139,6 +139,10 @@ exports.createISpy = async function (member, message) {
 
     async function accept(member, message) {
         if (scenes[randomScene] === 'scene1') {
+            playerOneData.active = true
+            playerTwoData.active = true
+            return sceneOne(member, message)
+        } else if (scenes[randomScene] === 'scene2') {
             playerOneData.active = true
             playerTwoData.active = true
             return sceneOne(member, message)
