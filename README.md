@@ -17,7 +17,7 @@ Start with the basics of a discord bot (Getting the token, making the files, etc
 ```js
 const Discord = require('discord.js')
 const minigames = require('discord-minigames')
-const client = new Discord.client()
+const client = new Discord.Client()
 
 client.on('ready', () => {
     console.log(`${client.tag} is online!`)
