@@ -10,7 +10,7 @@
 $ npm install discord-minigames
 ```
 ## Games
-`battle` is the only game so far, `I spy`, `tictactoe` and `conect four` is in progress, and will be done within the next week, so stay tune for updates!
+`battle` and `ispy` are the only games so far, `tictactoe`, `conect four` and `life` is in progress, and will be done within the next week, so stay tune for updates!
 ## How to use
 ### Starting Games
 Start with the basics of a discord bot (Getting the token, making the files, etc) then, in your main file put this
