@@ -50,16 +50,16 @@ async function createBattle(member, message) {
                 `Hey ${member}! ${message.author} has challenged you to a battle, do you accept?`
             )
             .then(async msg => {
-                await msg.react("âœ…");
-                await msg.react("âŒ");
+                await msg.react("✅");
+                await msg.react("❌");
                 const filter = (reaction, user) =>
-                    reaction.emoji.name === "âŒ" && user.id === playerTwo;
+                    reaction.emoji.name === "❌" && user.id === playerTwo;
                 const no = msg.createReactionCollector(filter, {
                     time: 15000,
                     max: 1
                 });
                 const filter2 = (reaction, user) =>
-                    reaction.emoji.name === "âœ…" && user.id === playerTwo;
+                    reaction.emoji.name === "✅" && user.id === playerTwo;
                 const yes = msg.createReactionCollector(filter2, {
                     time: 15000,
                     max: 1
