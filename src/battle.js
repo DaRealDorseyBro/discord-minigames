@@ -15,7 +15,7 @@ let heals = [
 ];
 let chance = ["yes", "yes", "no", "yes", "yes", "no", "yes", "yes"];
 //BATTLES
-exports.createBattle = async function (member, message) {
+async function createBattle(member, message) {
     const settings = {
         health: 175,
         attackMin: 1,
@@ -50,16 +50,16 @@ exports.createBattle = async function (member, message) {
                 `Hey ${member}! ${message.author} has challenged you to a battle, do you accept?`
             )
             .then(async msg => {
-                await msg.react("✅");
-                await msg.react("❌");
+                await msg.react("âœ…");
+                await msg.react("âŒ");
                 const filter = (reaction, user) =>
-                    reaction.emoji.name === "❌" && user.id === playerTwo;
+                    reaction.emoji.name === "âŒ" && user.id === playerTwo;
                 const no = msg.createReactionCollector(filter, {
                     time: 15000,
                     max: 1
                 });
                 const filter2 = (reaction, user) =>
-                    reaction.emoji.name === "✅" && user.id === playerTwo;
+                    reaction.emoji.name === "âœ…" && user.id === playerTwo;
                 const yes = msg.createReactionCollector(filter2, {
                     time: 15000,
                     max: 1
@@ -255,7 +255,7 @@ exports.createBattle = async function (member, message) {
         collector.on("collect", async msg => {
             if (
                 msg.content.toLowerCase() === "--end" ||
-                msg.content.toLowerCase() === "ðŸ³ï¸" ||
+                msg.content.toLowerCase() === "Ã°Å¸ÂÂ³Ã¯Â¸Â" ||
                 msg.content.toLowerCase() === "suicide"
             ) {
                 let winner;
@@ -394,7 +394,7 @@ exports.createBattle = async function (member, message) {
         collector.on("collect", async msg => {
             if (
                 msg.content.toLowerCase() === "--end" ||
-                msg.content.toLowerCase() === "ðŸ³ï¸" ||
+                msg.content.toLowerCase() === "Ã°Å¸ÂÂ³Ã¯Â¸Â" ||
                 msg.content.toLowerCase() === "suicide"
             ) {
                 let winner;
@@ -530,3 +530,5 @@ exports.createBattle = async function (member, message) {
         }, 1500);
     }
 }
+
+module.exports.createBattle = createBattle
